@@ -19,13 +19,10 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 class Main extends React.Component {
-    // constructor(props){
-    //     super(props);
-    // }
 
     render() {
         return(
-            <div  key="norender">
+            <div>
                 <Header name={this.props.name} userLogout = {this.props.userLogout} 
                         isUserLoggedOut = {this.props.isUserLoggedOut}/>
             {this.props.isUserAuthentic && !this.props.isUserLoggedOut ? 

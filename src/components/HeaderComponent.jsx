@@ -1,4 +1,5 @@
 import React from 'react';
+import './HeaderComponent.css'
 
 class Header extends React.Component {
     constructor(props){
@@ -12,14 +13,14 @@ class Header extends React.Component {
 
     render() {
         return(
-            <div>
+            <div className="header-container">
                 {!this.props.isUserLoggedOut ? 
-                <div>
-                    <div>
-                        <span>User: {this.props.name}</span>
+                <div className="header-content">
+                    <div className="header-items">
+                        <span className="user-item">User: {this.props.name}</span>
                     </div>
-                    <div>
-                        <span onClick={this.handleLogOut}>Logout</span>
+                    <div className="header-items">
+                        <span className="logout-item" onClick={this.handleLogOut}>Logout</span>
                     </div>
                 </div> :<div/> }
             </div> 

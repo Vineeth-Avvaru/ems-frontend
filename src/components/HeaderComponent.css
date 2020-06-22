@@ -1,0 +1,27 @@
+.header-container {
+    height: 5vh;
+    background-color: black;
+    color: white;
+}
+.header-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.header-items {
+    padding: 5px;
+    height: 5vh;
+    align-self: center;
+}
+
+.user-item {
+    border-right: 1px solid white;
+    padding-right: 10px;
+}
+
+.logout-item {
+    cursor: pointer;
+    padding-right: 10px;
+}
