@@ -2,6 +2,7 @@ import * as ActionTypes from './ActionTypes';
 import { apiServicePost, apiServiceGet } from '../shared/ApiService';
 
 const USERLOGINURL = '/login';
+const FETCHEMPLOYEESURL = '/fetchEmployees';
 
 export const onRoleChange = (role) => ({
     type: ActionTypes.ROLE_CHANGE,
@@ -37,3 +38,13 @@ export const userLogin = (role, id, password) => (dispatch) => {
 export const userLogout = ()=> ({
     type: ActionTypes.LOGOUT_USER
 })
+
+export const setEmployeesData = (employeesData) => ({
+    type: ActionTypes.FETCH_EMPLOYEES,
+    payload: employeesData
+})
+
+export const fetchEmployees = () => (dispatch) => {
+    return apiServiceGet(FETCHEMPLOYEESURL)
+    .then(employeesData => dispatch(setEmployeesData(employeesData)));
+}

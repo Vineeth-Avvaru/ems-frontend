@@ -1,0 +1,41 @@
+.login-container {
+    display: flex;
+    flex-direction: row;
+    padding: 50px;
+    /* border: 2px solid #BCB5B5 ; */
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;  	
+	margin: auto;
+}
+
+.login-icon {
+    font-size: 50px;
+    margin-right: 20px;
+}
+
+.login-label {
+    width: 100px;
+}
+
+.login-submit {
+    color: white;
+    background-color: black;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.signin-heading {
+    margin-bottom: 15px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}

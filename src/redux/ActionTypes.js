@@ -3,3 +3,4 @@ export const ROLE_CHANGE = 'ROLE_CHANGE';
 export const LOGIN_ID_CHANGE = 'LOGIN_ID_CHANGE';
 export const PASSWORD_CHANGE = 'PASSWORD_CHANGE';
 export const LOGOUT_USER = 'LOGOUT_USER';
+export const FETCH_EMPLOYEES = 'FETCH_EMPLOYEES'

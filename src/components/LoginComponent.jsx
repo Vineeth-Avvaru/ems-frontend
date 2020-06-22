@@ -1,8 +1,9 @@
 import React from 'react';
 import { userLogin, onRoleChange, onIDChange, onPasswordChange } from '../redux/ActionCreators';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import './LoginComponent.css'
 
 const mapStateToProps = state => {
     return {
@@ -32,19 +33,22 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div>
-                <FontAwesomeIcon icon={faSignInAlt} />
-                <h2>Login</h2>
-                <form onSubmit={this.handleLogin}>
+            <div className="login-container">
+                <div>
+                <FontAwesomeIcon icon={faSignInAlt} className="login-icon" />
+                </div>
+                <div>
+                <h2 className="signin-heading">SignIn</h2>
+                <form onSubmit={this.handleLogin} className="login-form">
                     <div>
-                        <label>Role</label>
+                        <label className="login-label">Role</label>
                         <select value={this.props.loginData.role} onChange={(event) => this.props.onRoleChange(event.target.value)}>
                             <option value="Admin">Admin</option>
                             <option value="Employee">Employee</option>
                         </select>
                     </div>
                     <div>
-                        <label>ID</label>
+                        <label className="login-label">ID</label>
                         <input
                             required
                             type="text"
@@ -54,11 +58,14 @@ class Login extends React.Component {
                         />
                     </div>
                     <div>
-                        <label>Password</label>
+                        <label className="login-label">Password</label>
                         <input required type="password" placeholder="Password" value={this.props.loginData.password} onChange={(event) => this.props.onPasswordChange(event.target.value)} />
                     </div>
-                    <button type="submit">Login</button>
+                    <div>
+                    <button type="submit" className="login-submit">Login</button>
+                    </div>
                 </form>
+                </div>
             </div>
         )
     }

@@ -1,0 +1,35 @@
+.admin-home-container {
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    height: calc(95vh - 100px);
+}
+.results-container {
+    height: 10vh;
+}
+.employees-list-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    font-weight: 600;
+    color: #595959;
+    padding: 10px;
+    border-bottom: 1px solid #BCB5B5;
+    border-top: 1px solid #BCB5B5;
+    background-color: #F4F3F2;
+}
+
+.header-item {
+    width: 25%;
+    align-self: center;
+}
+
+.add-employee {
+    color: #BCB5B5 ;
+    font-size: 35px;
+}
+
+.add-employee:hover {
+    cursor: pointer;
+    color: black;
+}

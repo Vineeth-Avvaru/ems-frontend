@@ -1,0 +1,26 @@
+.employee-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    color: #595959;
+    padding: 10px;
+    border-bottom: 1px solid #BCB5B5;
+}
+
+.list-item {
+    width: 25%;
+    align-self: center;
+}
+
+.action-items {
+    display: flex;
+    flex-direction: row;
+}
+
+.action-icon {
+    margin-right: 20px;
+}
+
+.action-icon:hover {
+    cursor: pointer;
+}
