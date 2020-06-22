@@ -3,31 +3,32 @@ import Home from './HomeComponent';
 import Login from './LoginComponent';
 import Header from './HeaderComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import { userLogin, userLogout } from '../redux/ActionCreators';
+import { userLogout } from '../redux/ActionCreators';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
     return {
-        loginData: state.UserAuthenticationData,
+        name: state.UserAuthenticationData.name,
+        isUserAuthentic: state.UserAuthenticationData.isUserAuthentic,
+        isUserLoggedOut: state.UserAuthenticationData.isUserLoggedOut
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    userLogin: (role, id, password) => dispatch(userLogin(role, id, password)),
     userLogout: () => dispatch(userLogout()),
 })
 
 class Main extends React.Component {
-    constructor(props){
-        super(props);
-    }
+    // constructor(props){
+    //     super(props);
+    // }
 
     render() {
         return(
-            <div>
-                <Header name={this.props.loginData.name} userLogout = {this.props.userLogout} 
-                        isUserLoggedOut = {this.props.loginData.isUserLoggedOut}/>
-                {this.props.loginData.isUserAuthentic && !this.props.loginData.isUserLoggedOut ? 
+            <div  key="norender">
+                <Header name={this.props.name} userLogout = {this.props.userLogout} 
+                        isUserLoggedOut = {this.props.isUserLoggedOut}/>
+            {this.props.isUserAuthentic && !this.props.isUserLoggedOut ? 
             <div>       
                 <Switch>
                     <Route path="/home" component={() => <Home />} />
@@ -36,7 +37,7 @@ class Main extends React.Component {
             </div> :
             <div>
                 <Switch>
-                    <Route path="/login" component={() => <Login userLogin = {this.props.userLogin} />} />
+                    <Route path="/login" component={() => <Login />} />
                     <Redirect to="/login" />   
                 </Switch>
             </div> }  
