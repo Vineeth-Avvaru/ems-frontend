@@ -5,7 +5,7 @@ import './AdminComponent.css';
 import EmployeesList from './EmployeesListComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-import { UncontrolledTooltip } from 'reactstrap';
+import { UncontrolledTooltip, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 const mapStateToProps = state => {
     return {
@@ -19,9 +19,25 @@ const mapDispatchToProps = (dispatch) => ({
 
 class AdminHome extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAddEmployeeModalOpen : false
+        }
+
+        this.toggleAddEmployeeModal = this.toggleAddEmployeeModal.bind(this);
+    }
+
     componentDidMount() {
         this.props.fetchEmployees();
     }
+
+    toggleAddEmployeeModal() {
+        this.setState({
+            isAddEmployeeModalOpen: !this.state.isAddEmployeeModalOpen
+        })
+    }
+
     render() {
         return (
             <div className="admin-home-container">
@@ -36,11 +52,18 @@ class AdminHome extends React.Component {
                     {this.props.employeesData.length ? <EmployeesList employees={this.props.employeesData} /> : ""}
                 </div>
                 <div>
-                <FontAwesomeIcon icon={faPlusCircle} id="Addtooltip" className="add-employee" />
+                <FontAwesomeIcon icon={faPlusCircle} id="Addtooltip" className="add-employee" onClick={this.toggleAddEmployeeModal} />
                 <UncontrolledTooltip placement="bottom" target="Addtooltip">
                     Add Employee
                 </UncontrolledTooltip>
                 </div>
+
+                <Modal isOpen={this.state.isAddEmployeeModalOpen} toggle={this.toggleAddEmployeeModal}>
+                    <ModalHeader toggle={this.toggleAddEmployeeModal}></ModalHeader>
+                    <ModalBody>
+                        Add An Employee
+                    </ModalBody>
+                </Modal>
             </div>
         )
     }
