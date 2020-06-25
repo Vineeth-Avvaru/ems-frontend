@@ -26,9 +26,25 @@ export function apiServiceGet (url, headers = standardHeader) {
  * @param {object} body optional but recommended. Should be JSON.
  * @param {object} headers optional 
  */
-export function apiServicePost (url, body = {}, headers = standardHeader) {
+export function apiServicePost (url, body, headers = standardHeader) {
     return fetch (BASEURL + url, {
         method: ApiTypes.POST,
+        body: JSON.stringify(body),
+        headers: headers
+    })
+    .then(response => response.json())
+}
+
+/**
+ * PUT api calls. Receive responses as promise
+ * @param {string} url remaining part of url. Must start with '/'
+ * @param {object} body optional but recommended. Should be JSON.
+ * @param {object} headers optional 
+ */
+export function apiServicePut (url, body, headers = standardHeader) {
+    console.log(body);
+    return fetch (BASEURL + url, {
+        method: ApiTypes.PUT,
         body: JSON.stringify(body),
         headers: headers
     })
