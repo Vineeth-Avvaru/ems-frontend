@@ -16,7 +16,7 @@ class EmployeesList extends React.Component {
                     <div  className="list-item">{item.Role}</div>
                     <div  className="list-item action-items">
                         <div>
-                            <FontAwesomeIcon icon={faPaperPlane} id="Reviewtooltip" className="action-icon"/>
+                            <FontAwesomeIcon icon={faPaperPlane} id="Reviewtooltip" className="action-icon" onClick={()=> this.props.onSubmitReviewIconClick(item.ID)}/>
                             <UncontrolledTooltip placement="left" target="Reviewtooltip">
                             Submit Review
                             </UncontrolledTooltip>

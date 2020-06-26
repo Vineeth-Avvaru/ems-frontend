@@ -7,6 +7,7 @@ const ADDEMPLOYEE = '/addEmployee';
 const DELETEEMPLOYEE = '/deleteEmployee';
 const FETCHEMPLOYEEBYID = '/fetchEmployeeByID';
 const UPDATEEMPLOYEE = '/updateEmployee';
+const FETCHREVIEW = '/fetchReview';
 
 export const onRoleChange = (role) => ({
     type: ActionTypes.ROLE_CHANGE,
@@ -90,3 +91,18 @@ export const updateEmpDescription = (description) => ({
     type: ActionTypes.UPDATE_EMPLOYEE_DESCRIPTION,
     payload: description
 })
+
+export const setReview = (review) => ({
+    type: ActionTypes.SET_REVIEW,
+    payload: review
+})
+
+export const fetchReview = (reviewGivenBy, reviewGivenTo) => (dispatch) => {
+    let reqBody = {
+        givenBy: reviewGivenBy,
+        givenTo: reviewGivenTo
+    }
+
+    return apiServicePost(FETCHREVIEW, reqBody)
+    .then(data => dispatch(setReview(data.review)));
+}

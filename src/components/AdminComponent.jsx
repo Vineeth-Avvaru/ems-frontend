@@ -6,7 +6,9 @@ import {
   fetchEmployeeByID,
   updateEmpRole,
   updateEmpDescription,
-  updateEmployee
+  updateEmployee,
+  fetchReview,
+  setReview
 } from "../redux/ActionCreators";
 import { connect } from "react-redux";
 import "./AdminComponent.css";
@@ -25,6 +27,8 @@ const mapStateToProps = (state) => {
   return {
     employeesData: state.EmployeesData.employees,
     employeeByID: state.EmployeesData.employeeByID,
+    review: state.ReviewsData.review,
+    adminID: state.UserAuthenticationData.id
   };
 };
 
@@ -35,7 +39,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchEmployeeByID: (id) => dispatch(fetchEmployeeByID(id)),
   updateEmpRole:(role) => dispatch(updateEmpRole(role)),
   updateEmpDescription: (description) => dispatch(updateEmpDescription(description)),
-  updateEmployee: (updatedData) => dispatch(updateEmployee(updatedData))
+  updateEmployee: (updatedData) => dispatch(updateEmployee(updatedData)),
+  fetchReview: (reviewGivenBy, reviewGivenTo) => dispatch(fetchReview(reviewGivenBy, reviewGivenTo)),
+  setReview: (review) => dispatch(setReview(review))
 });
 
 class AdminHome extends React.Component {
@@ -45,6 +51,7 @@ class AdminHome extends React.Component {
       isAddEmployeeModalOpen: false,
       isDeleteEmployeeModalOpen: false,
       isEditEmployeeModalOpen: false,
+      isSubmitReviewModalOpen: false,
       addEmployeeData: {
         id: "",
         name: "",
@@ -58,6 +65,7 @@ class AdminHome extends React.Component {
     this.toggleAddEmployeeModal = this.toggleAddEmployeeModal.bind(this);
     this.toggleDeleteEmployeeModal = this.toggleDeleteEmployeeModal.bind(this);
     this.toggleEditEmployeeModal = this.toggleEditEmployeeModal.bind(this);
+    this.toggleSubmitReviewModal = this.toggleSubmitReviewModal.bind(this);
     this.handleAddEmployee = this.handleAddEmployee.bind(this);
     this.addEmpID = this.addEmpID.bind(this);
     this.addEmpName = this.addEmpName.bind(this);
@@ -68,6 +76,7 @@ class AdminHome extends React.Component {
     this.handleDeleteEmployee = this.handleDeleteEmployee.bind(this);
     this.onDeleteIconClick = this.onDeleteIconClick.bind(this);
     this.onEditIconClick = this.onEditIconClick.bind(this);
+    this.onSubmitReviewIconClick = this.onSubmitReviewIconClick.bind(this);
   }
 
   componentDidMount() {
@@ -92,6 +101,12 @@ class AdminHome extends React.Component {
     });
   }
 
+  toggleSubmitReviewModal() {
+    this.setState({
+        isSubmitReviewModalOpen: !this.state.isSubmitReviewModalOpen,
+      });
+  }
+
   onDeleteIconClick(id) {
     this.setState({
       deleteEmployeeID: id,
@@ -102,6 +117,11 @@ class AdminHome extends React.Component {
   onEditIconClick(id) {
     this.props.fetchEmployeeByID(id);
     this.toggleEditEmployeeModal();
+  }
+
+  onSubmitReviewIconClick(eid) {
+      this.props.fetchReview(this.props.adminID, eid);
+      this.toggleSubmitReviewModal();
   }
 
   handleDeleteEmployee() {
@@ -205,6 +225,7 @@ class AdminHome extends React.Component {
               employees={this.props.employeesData}
               onEditIconClick={this.onEditIconClick}
               onDeleteIconClick={this.onDeleteIconClick}
+              onSubmitReviewIconClick={this.onSubmitReviewIconClick}
             />
           ) : (
             ""
@@ -381,6 +402,24 @@ class AdminHome extends React.Component {
                 </button>
               </div>
             </form>
+          </ModalBody>
+        </Modal>
+        <Modal
+          isOpen={this.state.isSubmitReviewModalOpen}
+          toggle={this.toggleSubmitReviewModal}
+        >
+          <ModalHeader toggle={this.toggleSubmitReviewModal}>
+            Submit Performance Review
+          </ModalHeader>
+          <ModalBody>
+            <div>
+                <div>
+                <textarea rows="10" cols="50" value={this.props.review} placeholder="Write Employee Performance Review"/>
+                </div>
+                <Button onClick={this.handleDeleteEmployee} color="primary">
+                  Submit Review
+                </Button>
+            </div>
           </ModalBody>
         </Modal>
       </div>
