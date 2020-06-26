@@ -1,9 +1,10 @@
 import * as ActionTypes from './ActionTypes';
-import { apiServicePost, apiServiceGet, apiServicePut } from '../shared/ApiService';
+import { apiServicePost, apiServiceGet, apiServicePut, apiServiceDelete } from '../shared/ApiService';
 
 const USERLOGINURL = '/login';
 const FETCHEMPLOYEESURL = '/fetchEmployees';
 const ADDEMPLOYEE = '/addEmployee';
+const DELETEEMPLOYEE = '/deleteEmployee';
 
 export const onRoleChange = (role) => ({
     type: ActionTypes.ROLE_CHANGE,
@@ -51,7 +52,11 @@ export const fetchEmployees = () => (dispatch) => {
 }
 
 export const addEmployee = (employeeData) => (dispatch) => {
-    console.log(employeeData);
     return apiServicePut(ADDEMPLOYEE, employeeData)
+    .then(data => dispatch(fetchEmployees()));
+}
+
+export const deleteEmployee = (deleteID) => (dispatch) => {
+    return apiServiceDelete(DELETEEMPLOYEE, deleteID)
     .then(data => dispatch(fetchEmployees()));
 }

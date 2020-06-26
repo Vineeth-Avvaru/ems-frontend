@@ -6,6 +6,7 @@ import './EmployeeListComponent.css'
 
 class EmployeesList extends React.Component {
 
+
     render() {
         const employees = this.props.employees.map((item, index) => {
             return (
@@ -27,7 +28,7 @@ class EmployeesList extends React.Component {
                             </UncontrolledTooltip>
                         </div>
                         <div>
-                            <FontAwesomeIcon icon={faTrash} id="Deletetooltip" className="action-icon"/>
+                            <FontAwesomeIcon icon={faTrash} id="Deletetooltip" className="action-icon" onClick={()=>this.props.onDeleteIconClick(item.ID)}/>
                             <UncontrolledTooltip placement="right" target="Deletetooltip">
                             Delete
                             </UncontrolledTooltip>

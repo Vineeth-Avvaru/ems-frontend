@@ -25,7 +25,8 @@ class Main extends React.Component {
             <div>
                 <Header name={this.props.name} userLogout = {this.props.userLogout} 
                         isUserLoggedOut = {this.props.isUserLoggedOut}/>
-            {this.props.isUserAuthentic && !this.props.isUserLoggedOut ? 
+            {/* {this.props.isUserAuthentic && !this.props.isUserLoggedOut ?  */}
+            {true ?
             <div>       
                 <Switch>
                     <Route path="/home" component={() => <Home />} />
