@@ -1,10 +1,12 @@
 import * as ActionTypes from './ActionTypes';
-import { apiServicePost, apiServiceGet, apiServicePut, apiServiceDelete } from '../shared/ApiService';
+import { apiServicePost, apiServiceGet, apiServicePut, apiServiceDelete, apiServicePatch } from '../shared/ApiService';
 
 const USERLOGINURL = '/login';
 const FETCHEMPLOYEESURL = '/fetchEmployees';
 const ADDEMPLOYEE = '/addEmployee';
 const DELETEEMPLOYEE = '/deleteEmployee';
+const FETCHEMPLOYEEBYID = '/fetchEmployeeByID';
+const UPDATEEMPLOYEE = '/updateEmployee';
 
 export const onRoleChange = (role) => ({
     type: ActionTypes.ROLE_CHANGE,
@@ -60,3 +62,31 @@ export const deleteEmployee = (deleteID) => (dispatch) => {
     return apiServiceDelete(DELETEEMPLOYEE, deleteID)
     .then(data => dispatch(fetchEmployees()));
 }
+
+export const setEmployeeByID = (data) => ({
+    type: ActionTypes.SET_EMPLOYEE_BY_ID,
+    payload: data
+})
+
+export const fetchEmployeeByID = (id) => (dispatch) => {
+    let reqBody = {
+        id: id
+    };
+    return apiServicePost(FETCHEMPLOYEEBYID, reqBody)
+    .then(data => dispatch(setEmployeeByID(data)));
+}
+
+export const updateEmployee = (updatedData) => (dispatch) => {
+    return apiServicePatch(UPDATEEMPLOYEE, updatedData)
+    .then(data => dispatch(fetchEmployees()));
+}
+
+export const updateEmpRole = (role) => ({
+    type: ActionTypes.UPDATE_EMPLOYEE_ROLE,
+    payload: role
+})
+
+export const updateEmpDescription = (description) => ({
+    type: ActionTypes.UPDATE_EMPLOYEE_DESCRIPTION,
+    payload: description
+})

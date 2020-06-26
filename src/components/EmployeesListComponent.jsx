@@ -22,7 +22,7 @@ class EmployeesList extends React.Component {
                             </UncontrolledTooltip>
                         </div>
                         <div>
-                            <FontAwesomeIcon icon={faEdit} id="Edittooltip" className="action-icon"/>
+                            <FontAwesomeIcon icon={faEdit} id="Edittooltip" className="action-icon" onClick={()=>this.props.onEditIconClick(item.ID)}/>
                             <UncontrolledTooltip placement="bottom" target="Edittooltip">
                             Edit
                             </UncontrolledTooltip>
