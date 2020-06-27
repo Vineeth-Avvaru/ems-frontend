@@ -1,0 +1,13 @@
+.review-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    color: #595959;
+    padding: 10px;
+    border-bottom: 1px solid #BCB5B5;
+}
+
+.list-item {
+    align-self: center;
+}
