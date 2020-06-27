@@ -8,7 +8,9 @@ import {
   updateEmpDescription,
   updateEmployee,
   fetchReview,
-  setReview
+  setReview,
+  updateReview,
+  addReview
 } from "../redux/ActionCreators";
 import { connect } from "react-redux";
 import "./AdminComponent.css";
@@ -28,7 +30,8 @@ const mapStateToProps = (state) => {
     employeesData: state.EmployeesData.employees,
     employeeByID: state.EmployeesData.employeeByID,
     review: state.ReviewsData.review,
-    adminID: state.UserAuthenticationData.id
+    initialReview: state.ReviewsData.initialReview,
+    adminID: state.UserAuthenticationData.id,
   };
 };
 
@@ -37,11 +40,15 @@ const mapDispatchToProps = (dispatch) => ({
   addEmployee: (employeeData) => dispatch(addEmployee(employeeData)),
   deleteEmployee: (deleteID) => dispatch(deleteEmployee(deleteID)),
   fetchEmployeeByID: (id) => dispatch(fetchEmployeeByID(id)),
-  updateEmpRole:(role) => dispatch(updateEmpRole(role)),
-  updateEmpDescription: (description) => dispatch(updateEmpDescription(description)),
+  updateEmpRole: (role) => dispatch(updateEmpRole(role)),
+  updateEmpDescription: (description) =>
+    dispatch(updateEmpDescription(description)),
   updateEmployee: (updatedData) => dispatch(updateEmployee(updatedData)),
-  fetchReview: (reviewGivenBy, reviewGivenTo) => dispatch(fetchReview(reviewGivenBy, reviewGivenTo)),
-  setReview: (review) => dispatch(setReview(review))
+  fetchReview: (reviewGivenBy, reviewGivenTo) =>
+    dispatch(fetchReview(reviewGivenBy, reviewGivenTo)),
+  setReview: (review) => dispatch(setReview(review)),
+  updateReview: (reviewBody) => dispatch(updateReview(reviewBody)),
+  addReview: (reviewBody) => dispatch(addReview(reviewBody)),
 });
 
 class AdminHome extends React.Component {
@@ -60,6 +67,7 @@ class AdminHome extends React.Component {
         description: "",
       },
       deleteEmployeeID: "",
+      editReviewEmployeeID: "",
     };
 
     this.toggleAddEmployeeModal = this.toggleAddEmployeeModal.bind(this);
@@ -77,6 +85,7 @@ class AdminHome extends React.Component {
     this.onDeleteIconClick = this.onDeleteIconClick.bind(this);
     this.onEditIconClick = this.onEditIconClick.bind(this);
     this.onSubmitReviewIconClick = this.onSubmitReviewIconClick.bind(this);
+    this.handleReviewEmployee = this.handleReviewEmployee.bind(this);
   }
 
   componentDidMount() {
@@ -103,8 +112,8 @@ class AdminHome extends React.Component {
 
   toggleSubmitReviewModal() {
     this.setState({
-        isSubmitReviewModalOpen: !this.state.isSubmitReviewModalOpen,
-      });
+      isSubmitReviewModalOpen: !this.state.isSubmitReviewModalOpen,
+    });
   }
 
   onDeleteIconClick(id) {
@@ -120,8 +129,12 @@ class AdminHome extends React.Component {
   }
 
   onSubmitReviewIconClick(eid) {
+
       this.props.fetchReview(this.props.adminID, eid);
-      this.toggleSubmitReviewModal();
+      this.setState({
+        editReviewEmployeeID: eid,
+      })
+      this.toggleSubmitReviewModal()
   }
 
   handleDeleteEmployee() {
@@ -195,18 +208,33 @@ class AdminHome extends React.Component {
     });
   }
 
-
   handleEditEmployee(event) {
     let updatedData = {
-        id: this.props.employeeByID.id,
-        role: this.props.employeeByID.role,
-        description: this.props.employeeByID.description
-    }
+      id: this.props.employeeByID.id,
+      role: this.props.employeeByID.role,
+      description: this.props.employeeByID.description,
+    };
 
     event.preventDefault();
     this.props.updateEmployee(updatedData);
     this.toggleEditEmployeeModal();
   }
+
+  handleReviewEmployee() {
+    let reviewBody = {
+      givenBy: this.props.adminID,
+      givenTo: this.state.editReviewEmployeeID,
+      review: this.props.review,
+    };
+    if (this.props.initialReview !== "null") {
+      this.props.updateReview(reviewBody);
+    }
+    else {
+      this.props.addReview(reviewBody);
+    }
+    this.toggleSubmitReviewModal();
+  }
+
   render() {
     return (
       <div className="admin-home-container">
@@ -380,7 +408,9 @@ class AdminHome extends React.Component {
                   required
                   type="text"
                   placeholder="Employee Role"
-                  onChange={(event) => this.props.updateEmpRole(event.target.value)}
+                  onChange={(event) =>
+                    this.props.updateEmpRole(event.target.value)
+                  }
                   value={this.props.employeeByID.role}
                 />
               </div>
@@ -413,11 +443,17 @@ class AdminHome extends React.Component {
           </ModalHeader>
           <ModalBody>
             <div>
-                <div>
-                <textarea rows="10" cols="50" value={this.props.review} placeholder="Write Employee Performance Review"/>
-                </div>
-                <Button onClick={this.handleDeleteEmployee} color="primary">
-                  Submit Review
+              <div>
+                <textarea
+                  rows="10"
+                  cols="50"
+                  onChange={(event) => this.props.setReview(event.target.value)}
+                  value={this.props.review}
+                  placeholder="Write Employee Performance Review"
+                />
+              </div>
+                <Button onClick={this.handleReviewEmployee} color="primary">
+                Submit Review
                 </Button>
             </div>
           </ModalBody>
