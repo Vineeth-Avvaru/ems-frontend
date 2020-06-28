@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { UserAuthenticationData } from "./reducers/loginForm";
 import { EmployeesData } from './reducers/employees';
 import { ReviewsData } from './reducers/reviews';
+import { FeedbacksData } from "./reducers/feedbacks";
 import thunk from 'redux-thunk';
 
 export const ConfigureStore = () => {
@@ -9,7 +10,8 @@ export const ConfigureStore = () => {
         combineReducers({
             UserAuthenticationData: UserAuthenticationData,
             EmployeesData: EmployeesData,
-            ReviewsData: ReviewsData
+            ReviewsData: ReviewsData,
+            FeedbacksData: FeedbacksData
         }),
         applyMiddleware(thunk)
     );

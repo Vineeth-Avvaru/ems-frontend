@@ -14,7 +14,7 @@ class ReviewsList extends React.Component {
                         <Button color="primary" onClick={()=>this.props.viewReview(item.givenBy)}>View Review</Button>
                     </div>
                     <div  className="list-item">
-                    <Button color="primary">Submit Feedback</Button>
+                    <Button color="primary" onClick={()=>this.props.onFeedbackClick(item.givenBy)}>View / Edit / Submit Feedback</Button>
                     </div>
                 </div>
             )

@@ -11,6 +11,9 @@ const FETCHREVIEW = '/fetchReview';
 const UPDATEREVIEW = '/updateReview';
 const ADDREVIEW = '/addReview';
 const FETCHEMPREVIEWS ='/fetchEmpReviews';
+const FETCHFEEDBACK = '/fetchFeedback';
+const UPDATEFEEDBACK = '/updateFeedback';
+const ADDFEEDBACK = '/addFeedback';
 
 export const onRoleChange = (role) => ({
     type: ActionTypes.ROLE_CHANGE,
@@ -136,4 +139,34 @@ export const fetchEmpReviews = (eID) => (dispatch) => {
     }
     return apiServicePost(FETCHEMPREVIEWS, reqBody)
     .then(data=> dispatch(setEmpReviews(data)))
+}
+
+export const setFeedback = (feedback) => ({
+    type: ActionTypes.SET_FEEDBACK,
+    payload: feedback
+})
+
+export const setInitialFeedback = (feedback) => ({
+    type: ActionTypes.SET_INITIAL_FEEDBACK,
+    payload: feedback
+})
+
+export const fetchFeedback = (feedbackGivenBy, feedbackGivenTo) => (dispatch) => {
+    let reqBody = {
+        givenBy: feedbackGivenBy,
+        givenTo: feedbackGivenTo
+    }
+
+    return apiServicePost(FETCHFEEDBACK, reqBody)
+    .then(data => dispatch(setInitialFeedback(data.feedback)));
+}
+
+export const updateFeedback = (reqBody) => (dispatch) => {
+    return apiServicePatch(UPDATEFEEDBACK, reqBody)
+    .then(data => dispatch(setFeedback(reqBody.feedback)));
+}
+
+export const addFeedback = (reqBody) => (dispatch) => {
+    return apiServicePut(ADDFEEDBACK, reqBody)
+    .then(data => dispatch(setFeedback(reqBody.feedback)))
 }
