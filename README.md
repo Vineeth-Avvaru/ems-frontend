@@ -1,7 +1,22 @@
 ## Prerequisites
 You need to have Node installed in you local system. <br/>
 To install [Node](https://nodejs.org/en/download/).<br/>
-**ems-backend** should be setup and be running prior to running the ems-frontend
+**ems-backend** should be setup and be running prior to running the ems-frontend <br/>
+If the backend is setup properly you can use the following data to login.
+- Initial Admins Data <br/>
+
+| ID  | Name  | Password |
+|-----|-------|----------|
+| A01 | Dana  | White    |
+| A02 | Shane | Black    |
+
+- Initial Employees Data <br/>
+
+| ID  | Name  | Password  | Role            | Description   |
+|-----|-------|-----------|-----------------|---------------|
+| E01 | Okada | Kazuchika | Lead Fighter    | He Fights     |
+| E02 | Kenny | Omega     | Lead Challenger | He Challenges |
+
 
 ## About
 Uses the API's of **ems-backend** to fetch/edit/add various data.
