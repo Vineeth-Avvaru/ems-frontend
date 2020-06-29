@@ -20,6 +20,16 @@ If the backend is setup properly you can use the following data to login.
 
 ## About
 Uses the API's of **ems-backend** to fetch/edit/add various data.
+## Admins 
+- Can View Employees List
+- Can View, Edit every employee details.
+- Can submit performance reviews to the Employees.
+- Can View/Edit the submitted reviews.
+## Employees
+- Can view the list of reviews given to them.
+- Can View the details of the review.
+- Can Submit feedback for the reviews.
+- Can View/Edit the submitted feedback.
 
 ## How to run in Local system
 
